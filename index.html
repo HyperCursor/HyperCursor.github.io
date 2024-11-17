@@ -8,9 +8,10 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #f4f4f9;
         }
@@ -21,18 +22,29 @@
             background: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            margin-bottom: 20px;
         }
         .status {
             font-size: 1.5em;
             margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <div class="status-container">
         <h1>Server Status</h1>
+        <p><strong>Server:</strong> mark01338.aternos.me:49382</p>
         <div class="status" id="server-status">Loading...</div>
     </div>
+    <footer>
+        <p>Website created using HTML, CSS, and JavaScript.</p>
+        <p>Data is fetched from the <a href="https://api.mcstatus.io" target="_blank">MCStatus API</a>.</p>
+    </footer>
     <script>
         // API URL
         const apiUrl = 'https://api.mcstatus.io/v2/status/java/mark01338.aternos.me:49382';
@@ -60,5 +72,4 @@
         fetchServerStatus();
     </script>
 </body>
-  </html>
-  
+</html>
