@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .status-container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .status {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-container">
+        <h1>Server Status</h1>
+        <div class="status" id="server-status">Loading...</div>
+    </div>
+    <script>
+        // API URL
+        const apiUrl = 'https://api.mcstatus.io/v2/status/java/mark01338.aternos.me:49382';
+
+        // Fetch server status
+        async function fetchServerStatus() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Extract the clean name from the API response
+                const statusElement = document.getElementById('server-status');
+                if (data && data.version && data.version.name_clean) {
+                    statusElement.textContent = data.version.name_clean;
+                } else {
+                    statusElement.textContent = 'Unable to fetch server status';
+                }
+            } catch (error) {
+                console.error('Error fetching server status:', error);
+                document.getElementById('server-status').textContent = 'Error fetching server status';
+            }
+        }
+
+        // Fetch status on page load
+        fetchServerStatus();
+    </script>
+</body>
+  </html>
+  
