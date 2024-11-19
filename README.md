@@ -1,5 +1,4 @@
-# HyperCursor.github.io
-Server Status
+#Server Status
 
 Shows the server status of mark01338.aternos.me:51263(our server)
 
