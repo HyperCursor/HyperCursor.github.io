@@ -1,6 +1,6 @@
 # HyperCursor.github.io
 Server Status
 
-Shows the server status of mark01338.aternos.me:49382
+Shows the server status of mark01338.aternos.me:51263(our server)
 
-It grabs the name_clean(status(because the online=true is always true on aternos server) on the api(https//api.mcinfo.io)
+It grabs the info of a server and uses the api(https//api.mcinfo.io)
