@@ -3,116 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Server Info</title>
+    <title>Solar-Powered Lamp</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
         }
-        .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-        h1 {
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 10px;
             text-align: center;
         }
-        .info {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #333;
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .image-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        .cta {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta a {
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-size: 18px;
             border-radius: 5px;
-            overflow-x: auto;
+            transition: background-color 0.3s;
         }
-        .info img {
-            display: block;
-            max-width: 100px;
-            margin: 10px 0;
-        }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        .error {
-            color: #ff5555;
-        }
-        .highlight {
-            color: #ff5555;
-            font-weight: bold;
+        .cta a:hover {
+            background-color: #45A049;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Solar-Powered Lamp</h1>
+        <p>Lighting the Way to a Sustainable Future</p>
+    </header>
+
     <div class="container">
-        <h1>Minecraft Server Info</h1>
-        <div id="serverInfo" class="info">Loading server info...</div>
-        <div class="info">
-            <h2>Important Notes About Aternos Servers</h2>
-            <p>
-                Aternos uses a clever system to display to the user in-game when one of their 
-                <span class="highlight">hosted servers is currently down, by showing "This server is offline." in the MOTD.</span> 
-                This works well for Minecraft players but makes it difficult for server status retrieval tools because it tricks our service into thinking it is online because it returned a successful response. 
-                While we could incorporate a workaround to show these servers as offline, there is no guaranteed method to properly detect this.
-            </p>
-            <p>
-                Additionally, Aternos puts servers into a suspended state if there has been no activity on the network for a while. When our service attempts to retrieve the status of a suspended server, their network declines any connection and a true offline response is returned by our service. Immediately following, Aternos will allow connections but return their fake 
-                <span class="highlight">"This server is offline."</span> response again, while our server is still returning the initial offline response due to our 1 minute cache duration. There is currently no solution for any of the issues listed above.
-            </p>
-            <p>
-                It is recommended that you do not rely to accurately determine the status of any Minecraft server hosted by Aternos.
-            </p>
-        </div>
+        <section class="image-section">
+            <h2>Our Innovative Design</h2>
+            <p>Experience the perfect blend of style, functionality, and sustainability.</p>
+            <!-- Add your 1:1 image here -->
+            <img src="your-image.jpg" alt="Solar-Powered Lamp">
+        </section>
+
+        <section>
+            <h2>Why Choose Our Lamp?</h2>
+            <ul>
+                <li>Harnesses renewable solar energy for cost-effective lighting.</li>
+                <li>Eco-friendly design that reduces carbon emissions.</li>
+                <li>Stylish and versatile for both indoor and outdoor use.</li>
+            </ul>
+        </section>
+
+        <section class="cta">
+            <h2>Ready to Light Up Your Space?</h2>
+            <a href="#">Pre-Order Now</a>
+        </section>
     </div>
-
-    <script>
-        const apiUrl = "https://api.mcstatus.io/v2/status/java/mark01338.aternos.me:51263";
-
-        async function fetchServerInfo() {
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw new Error("Failed to fetch server info");
-
-                const data = await response.json();
-                displayServerInfo(data);
-            } catch (error) {
-                document.getElementById('serverInfo').innerHTML = `<p class="error">Error: ${error.message}</p>`;
-            }
-        }
-
-        function displayServerInfo(data) {
-            const container = document.getElementById('serverInfo');
-
-            const serverInfoHtml = `
-                <strong>Online:</strong> ${data.online ? "Yes" : "No"}<br>
-                <strong>Host:</strong> ${data.host}<br>
-                <strong>Port:</strong> ${data.port}<br>
-                <strong>IP Address:</strong> ${data.ip_address || "N/A"}<br>
-                <strong>SRV Record:</strong> Host: ${data.srv_record?.host || "N/A"}, Port: ${data.srv_record?.port || "N/A"}<br>
-                <strong>EULA Blocked:</strong> ${data.eula_blocked ? "Yes" : "No"}<br>
-                <strong>Version:</strong> ${data.version?.name_clean || "N/A"}<br>
-                <strong>Protocol:</strong> ${data.version?.protocol || "N/A"}<br>
-                <strong>MOTD:</strong> <pre>${data.motd?.clean || "N/A"}</pre>
-                <strong>Players:</strong> ${data.players?.online || 0} / ${data.players?.max || "N/A"}<br>
-                <strong>Player List:</strong> <pre>${data.players?.list?.map(player => player.name_clean).join("\n") || "None"}</pre>
-                <strong>Server Icon:</strong> ${
-                    data.icon
-                        ? `<img src="${data.icon}" alt="Server Icon">`
-                        : "No icon available"
-                }<br>
-                <strong>Mods:</strong> <pre>${data.mods?.length ? data.mods.map(mod => mod.name).join("\n") : "None"}</pre>
-                <strong>Plugins:</strong> <pre>${data.plugins?.length ? data.plugins.map(plugin => plugin.name).join("\n") : "None"}</pre>
-                <strong>Software:</strong> ${data.software || "N/A"}<br>
-                <strong>Retrieved At:</strong> ${new Date(data.retrieved_at).toLocaleString()}<br>
-                <strong>Expires At:</strong> ${new Date(data.expires_at).toLocaleString()}<br>
-            `;
-
-            container.innerHTML = serverInfoHtml;
-        }
-
-        fetchServerInfo();
-    </script>
 </body>
 </html>
